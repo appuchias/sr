@@ -6,9 +6,9 @@ i7-12650H
 
 ```bash
 ❯ python reader.py dataset/spotify_train_dataset.zip
-100%|██████████████████████████████████████████████████████| 1011/1011 [03:17<00:00,  5.13it/s]
-CSR matrix created and saved to 'dataset/sparse_matrix.npz'.
-Guardada la correspondencia de canciones a columnas de la matriz
+100%|█████████████████████████████████████████████████████| 1011/1011 [03:08<00:00,  5.36it/s]
+Matriz CSR creada y guardada en './dataset/sparse_matrix.npz'.
+Guardada la correspondencia de canciones a columnas de la matriz en './dataset/correspondencia_canciones.json.zst'
 ```
 
 ```bash

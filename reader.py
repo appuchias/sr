@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 
-import json, sys, zipfile
+import json, zipfile
 
-import numpy as np
 from compression import zstd
-from scipy.sparse import csr_matrix, load_npz, save_npz
+from scipy.sparse import csr_matrix, save_npz
 from tqdm import tqdm
 
 
