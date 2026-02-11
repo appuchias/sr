@@ -54,17 +54,16 @@ def zip_a_npz(zip_path: str, npz_path: str, songs_path: str) -> None:
 
 
 if __name__ == "__main__":
+    from argparse import ArgumentParser
 
-    zip_path = sys.argv[1]
-    try:
-        npz_path = sys.argv[2]
-    except IndexError:
-        npz_path = "./dataset/sparse_matrix.npz"
+    parser = ArgumentParser()
 
-    if not zip_path:
-        print(f"Uso: {sys.argv[0]} <archivo.zip> [archivo_salida.npz]")
-        exit(1)
+    parser.add_argument("zip_path")
+    parser.add_argument("npz_path", nargs="?", default="./dataset/sparse_matrix.npz")
+    parser.add_argument(
+        "songs_path", nargs="?", default="./dataset/correspondencia_canciones.json.zst"
+    )
 
-    songs_path = "./dataset/correspondencia_canciones.json"
+    args = parser.parse_args()
 
-    zip_a_npz(zip_path, npz_path, songs_path)
+    zip_a_npz(args.zip_path, args.npz_path, args.songs_path)
