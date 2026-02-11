@@ -7,7 +7,7 @@ from scipy.sparse import csr_matrix, load_npz, save_npz
 from tqdm import tqdm
 
 
-def zip_a_npz(zip_path: str, output_path: str = "./dataset/sparse_matrix.npz") -> None:
+def zip_a_npz(zip_path: str, npz_path: str, songs_path: str) -> None:
     """Convierte los archivos contenidos en un zip a una matriz dispersa en npz"""
 
     songs = dict()
@@ -17,14 +17,12 @@ def zip_a_npz(zip_path: str, output_path: str = "./dataset/sparse_matrix.npz") -
         for file in tqdm(zipf.namelist()):
             if file.endswith(".json"):
                 with zipf.open(file) as f:
-
                     file_data = json.loads(f.read())
 
                     for playlist in file_data["playlists"]:
                         playlist_id = playlist["pid"]
 
                         for song in playlist["tracks"]:
-
                             song_id = song["track_uri"]
 
                             # Si ya hemos visto la canción usamos la columna asignada
@@ -43,13 +41,15 @@ def zip_a_npz(zip_path: str, output_path: str = "./dataset/sparse_matrix.npz") -
     matrix = csr_matrix((values, (rows, cols)), shape=(len(rows), len(songs)))
 
     # Guardar a NPZ
-    save_npz(output_path, matrix, compressed=False)
-    print(f"Matriz CSR creada y guardada en '{output_path}'.")
+    save_npz(npz_path, matrix, compressed=False)
+    print(f"Matriz CSR creada y guardada en '{npz_path}'.")
 
     # Guardar la relación de columnas a canciones
-    with open("./dataset/correspondencia_canciones.json", "w") as f:
+    with open(songs_path, "w") as f:
         f.write(json.dumps(songs))
-    print("Guardada la correspondencia de canciones a columnas de la matriz")
+    print(
+        f"Guardada la correspondencia de canciones a columnas de la matriz en '{songs_path}'"
+    )
 
 
 if __name__ == "__main__":
@@ -58,10 +58,12 @@ if __name__ == "__main__":
     try:
         npz_path = sys.argv[2]
     except IndexError:
-        npz_path = "sparse_matrix.npz"
+        npz_path = "./dataset/sparse_matrix.npz"
 
     if not zip_path:
         print(f"Uso: {sys.argv[0]} <archivo.zip> [archivo_salida.npz]")
         exit(1)
 
-    zip_a_npz(zip_path, npz_path)
+    songs_path = "./dataset/correspondencia_canciones.json"
+
+    zip_a_npz(zip_path, npz_path, songs_path)
