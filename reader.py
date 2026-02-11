@@ -46,7 +46,7 @@ def zip_a_npz(zip_path: str, npz_path: str, songs_path: str) -> None:
     print(f"Matriz CSR creada y guardada en '{npz_path}'.")
 
     # Guardar la relación de columnas a canciones
-    with zstd.open(songs_path, "w", level=12) as f:
+    with zstd.open(songs_path, "w") as f:
         f.write(json.dumps(songs).encode("utf8"))
     print(
         f"Guardada la correspondencia de canciones a columnas de la matriz en '{songs_path}'"
