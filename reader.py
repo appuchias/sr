@@ -57,10 +57,23 @@ if __name__ == "__main__":
 
     parser = ArgumentParser()
 
-    parser.add_argument("zip_path")
-    parser.add_argument("npz_path", nargs="?", default="./dataset/sparse_matrix.npz")
     parser.add_argument(
-        "songs_path", nargs="?", default="./dataset/correspondencia_canciones.json.zst"
+        "--zip_path",
+        nargs="?",
+        default="./dataset/spotify_train_dataset.zip",
+        help="Ruta al zip de spotify de entrenamiento",
+    )
+    parser.add_argument(
+        "--npz_path",
+        nargs="?",
+        default="./dataset/sparse_matrix.npz",
+        help="Ruta del archivo .npz de salida de la matriz dispersa",
+    )
+    parser.add_argument(
+        "--songs_path",
+        nargs="?",
+        default="./dataset/correspondencia_canciones.json.zst",
+        help="Ruta de salida del json comprimido con la correspondencia de canciones a columnas",
     )
 
     args = parser.parse_args()
