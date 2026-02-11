@@ -7,7 +7,7 @@ from scipy.sparse import csr_matrix, load_npz, save_npz
 from tqdm import tqdm
 
 
-def zip_a_npz(zip_path: str, output_path: str) -> None:
+def zip_a_npz(zip_path: str, output_path: str = "./dataset/sparse_matrix.npz") -> None:
     """Convierte los archivos contenidos en un zip a una matriz dispersa en npz"""
 
     songs = dict()
@@ -47,7 +47,7 @@ def zip_a_npz(zip_path: str, output_path: str) -> None:
     print(f"Matriz CSR creada y guardada en '{output_path}'.")
 
     # Guardar la relación de columnas a canciones
-    with open("correspondencia_canciones.json", "w") as f:
+    with open("./dataset/correspondencia_canciones.json", "w") as f:
         f.write(json.dumps(songs))
     print("Guardada la correspondencia de canciones a columnas de la matriz")
 
