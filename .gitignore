@@ -1,5 +1,5 @@
-dataset
-__pycache__
 .env
 *.npz
-correspondencia_canciones.json
+__pycache__
+dataset
+results
