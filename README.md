@@ -4,8 +4,12 @@ i7-12650H
 16GB RAM
 1TB SSD
 
+```
+python reader.py && python compute.py && python recommender.py --recommendations_path ./results/submission_it0.csv.gz
+```
+
 ```bash
-❯ python reader.py dataset/spotify_train_dataset.zip
+❯ python reader.py
 100%|█████████████████████████████████████████████████████| 1011/1011 [03:08<00:00,  5.36it/s]
 Matriz CSR creada y guardada en './dataset/sparse_matrix.npz'.
 Guardada la correspondencia de canciones a columnas de la matriz en './dataset/correspondencia_canciones.json.zst'
@@ -13,15 +17,11 @@ Guardada la correspondencia de canciones a columnas de la matriz en './dataset/c
 
 ```bash
 ❯ python compute.py
-Matrix shape: (65640000, 2262292)
-Number of playlists: 65640000
-Number of unique tracks: 2262292
-Popularity ranking saved to './results/popularity_ranking.json'
-Total unique tracks: 2262292
-Most popular track: spotify:track:7KXjTSCq5nL1LoYtL7XAwS with 45921 appearances
-Least popular track: spotify:track:5DvykFHB6utG6Hozpt5eNK with 1 appearances
+Número de playlists: 1000000
+Número de canciones: 2262292
+Ranking de popularidad guardado en './results/popularity_ranking.json.gz'
 
-Top 10 most popular tracks:
+Top 10 canciones más populares:
 1. spotify:track:7KXjTSCq5nL1LoYtL7XAwS: 45921 playlists
 2. spotify:track:1xznGGDReH1oQq0xzbwXa3: 42854 playlists
 3. spotify:track:7yyRTcZmCiyzzJlNzGC9Ol: 40680 playlists
@@ -35,18 +35,18 @@ Top 10 most popular tracks:
 ```
 
 ```bash
-❯ python recommender.py dataset/spotify_test_playlists.zip
-Loading popularity ranking...
-Loaded 2262292 tracks
+❯ python recommender.py --recommendations_path ./results/submission_it0.csv.gz
 
-Extracting playlist seeds from test dataset...
-Found 10000 test playlists
+Cargando ránkings de popularidad...
+Cargadas 2262292 canciones
 
-Generating recommendations...
-Generated recommendations for 10000 playlists
+Obteniendo los items semilla de las playlsits...
+Cargadas 10000 playlists
 
-Formatting submission file...
-Submission file saved to './results/submission.csv.gz'
-Total playlists: 10000
-Format: gzipped CSV (.csv.gz)
+Obteniendo recomendaciones...
+Obtenidas recomendaciones para 10000 playlists
+
+Guardando las recomendaciones con el formato de salida...
+Archivo de salida guardado en './results/submission_it0.csv.gz'
+Total de playlists con recomendaciones: 10000
 ```
