@@ -52,8 +52,8 @@ def save_popularity_ranking(
     # Convert to dictionary for easier lookup
     popularity_dict = {uri: count for uri, count in popularity_list}
 
-    with gzip.open(popularity_path, "w") as f:
-        f.write(json.dumps(popularity_dict).encode("utf8"))
+    with gzip.open(popularity_path, "wt", encoding="utf-8") as f:
+        json.dump(popularity_dict, f)
     print(f"Ranking de popularidad guardado en '{popularity_path}'")
 
     # print(f"Total unique tracks: {len(popularity_list)}")
@@ -88,8 +88,8 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # Cargar la correspondencia de canciones a columnas
-    with gzip.open(args.songs_path) as f:
-        songs = json.loads(f.read().decode("utf8"))
+    with gzip.open(args.songs_path, "rt", encoding="utf-8") as f:
+        songs = json.load(f)
 
     # Cargar la matriz dispersa de playlist-canciones
     matrix = load_npz(args.npz_path)

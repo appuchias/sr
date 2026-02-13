@@ -164,8 +164,8 @@ if __name__ == "__main__":
     args = _get_args()
 
     print("Cargando ránkings de popularidad...")
-    with gzip.open(args.popularity_path) as f:
-        popularity_dict = json.loads(f.read().decode("utf8"))
+    with gzip.open(args.popularity_path, "rt", encoding="utf-8") as f:
+        popularity_dict = json.load(f)
     print(f"Cargadas {len(popularity_dict)} canciones")
     print()
 
